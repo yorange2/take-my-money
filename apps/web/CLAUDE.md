@@ -5,7 +5,7 @@ This document provides detailed information about the Next.js application in the
 ## App Structure
 
 ```
-apps/next-app/
+apps/web/
 ├── src/
 │   └── app/                      # Next.js App Router directory
 │       ├── layout.tsx            # Root layout (metadata, html structure)
@@ -94,7 +94,7 @@ apps/next-app/
 ### Running the Dev Server
 
 ```bash
-cd apps/next-app
+cd apps/web
 pnpm run dev
 # Server runs at http://localhost:3000
 ```
@@ -102,14 +102,14 @@ pnpm run dev
 ### Building for Production
 
 ```bash
-cd apps/next-app
+cd apps/web
 pnpm run build
 ```
 
 ### Starting Production Server
 
 ```bash
-cd apps/next-app
+cd apps/web
 pnpm run start
 ```
 

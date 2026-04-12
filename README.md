@@ -9,7 +9,7 @@ A modern monorepo using pnpm workspaces with a Next.js application and shared ut
 ├── packages/
 │   └── shared-lib/        # Shared utility library
 ├── apps/
-│   └── next-app/          # Next.js application
+│   └── web/               # Next.js application
 ├── .vscode/               # VS Code settings for auto-fix/format
 ├── pnpm-workspace.yaml    # Workspace configuration
 ├── eslint.config.mts      # ESLint configuration
@@ -25,7 +25,7 @@ Shared utilities used across the monorepo. Contains:
 - `greet(name)` - Returns a greeting message
 - `add(a, b)` - Returns the sum of two numbers
 
-### `@take-my-money/next-app`
+### `@take-my-money/web`
 
 A modern Next.js application with:
 
@@ -37,7 +37,7 @@ A modern Next.js application with:
 **Run:**
 
 ```bash
-cd apps/next-app
+cd apps/web
 pnpm run dev
 ```
 
@@ -83,13 +83,13 @@ The project is configured for VS Code to auto-fix and format on save:
 ### Run Next.js Dev Server
 
 ```bash
-pnpm --filter @take-my-money/next-app run dev
+pnpm --filter @take-my-money/web run dev
 ```
 
 Or from the app directory:
 
 ```bash
-cd apps/next-app
+cd apps/web
 pnpm run dev
 ```
 

@@ -7,7 +7,7 @@ This is a modern monorepo using pnpm workspaces with a Next.js application and s
 **Take My Money** is a monorepo project structured with:
 
 - **packages/shared-lib** - Shared utility library (`@take-my-money/shared-lib`)
-- **apps/next-app** - Next.js 15 application with TypeScript and Tailwind CSS
+- **apps/web** - Next.js 15 application with TypeScript and Tailwind CSS
 
 ## Tech Stack
 
@@ -28,8 +28,8 @@ pnpm lint                 # Check code quality
 pnpm lint:fix             # ESLint auto-fix + Prettier format
 pnpm format               # Prettier format only
 
-# Next.js app specific
-cd apps/next-app
+# Web app specific
+cd apps/web
 pnpm run dev              # Start Next.js dev server (localhost:3000)
 pnpm run build            # Build for production
 pnpm run start            # Start production server
@@ -43,7 +43,7 @@ take-my-money/
 │   ├── src/index.js              # greet() and add() functions
 │   └── package.json              # @take-my-money/shared-lib
 │
-├── apps/next-app/                # Next.js application
+├── apps/web/                     # Next.js application
 │   ├── src/app/
 │   │   ├── page.tsx              # Home page (uses shared-lib)
 │   │   ├── layout.tsx            # Root layout with metadata
@@ -127,9 +127,9 @@ import { greet } from '@take-my-money/shared-lib';
 ### Run Next.js Development Server
 
 ```bash
-pnpm --filter @take-my-money/next-app run dev
+pnpm --filter @take-my-money/web run dev
 # or
-cd apps/next-app && pnpm run dev
+cd apps/web && pnpm run dev
 ```
 
 ### Fix All Formatting Issues
@@ -147,9 +147,9 @@ pnpm lint
 ### Add New Dependency to Next.js App
 
 ```bash
-pnpm --filter @take-my-money/next-app add some-package
+pnpm --filter @take-my-money/web add some-package
 # or for dev dependency
-pnpm --filter @take-my-money/next-app add -D some-package
+pnpm --filter @take-my-money/web add -D some-package
 ```
 
 ### Add New Dependency to Shared Library
@@ -184,7 +184,7 @@ pnpm --filter @take-my-money/shared-lib add some-package
 
 ## App-Specific Documentation
 
-For detailed information about the Next.js application, including page structure, component development, Tailwind CSS usage, and development workflows, see [apps/next-app/CLAUDE.md](apps/next-app/CLAUDE.md).
+For detailed information about the Next.js application, including page structure, component development, Tailwind CSS usage, and development workflows, see [apps/web/CLAUDE.md](apps/web/CLAUDE.md).
 
 ## Notes for Claude
 
