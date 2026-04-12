@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: take-my-money-config
-  namespace: default
+  namespace: take-my-money-dev
   labels:
     app: take-my-money-web
 data:

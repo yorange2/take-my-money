@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: take-my-money-web
-  namespace: default
+  namespace: take-my-money-dev
   labels:
     app: take-my-money-web
     version: v1

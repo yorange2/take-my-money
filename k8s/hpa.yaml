@@ -2,7 +2,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: take-my-money-web-hpa
-  namespace: default
+  namespace: take-my-money-dev
   labels:
     app: take-my-money-web
 spec:
