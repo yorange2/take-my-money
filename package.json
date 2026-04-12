@@ -1,0 +1,11 @@
+{
+  "name": "take-my-money",
+  "version": "0.0.0",
+  "description": "Take My Money monorepo with pnpm",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev",
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test"
+  }
+}
