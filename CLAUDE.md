@@ -5,6 +5,7 @@ This is a modern monorepo using pnpm workspaces with a Next.js application and s
 ## Project Overview
 
 **Take My Money** is a monorepo project structured with:
+
 - **packages/shared-lib** - Shared utility library (`@take-my-money/shared-lib`)
 - **apps/next-app** - Next.js 15 application with TypeScript and Tailwind CSS
 
@@ -108,6 +109,7 @@ To use `@take-my-money/shared-lib` in other packages:
 ```
 
 Then import:
+
 ```javascript
 import { greet } from '@take-my-money/shared-lib';
 ```
@@ -123,6 +125,7 @@ import { greet } from '@take-my-money/shared-lib';
 ## Common Tasks
 
 ### Run Next.js Development Server
+
 ```bash
 pnpm --filter @take-my-money/next-app run dev
 # or
@@ -130,16 +133,19 @@ cd apps/next-app && pnpm run dev
 ```
 
 ### Fix All Formatting Issues
+
 ```bash
 pnpm lint:fix
 ```
 
 ### Check for ESLint Errors
+
 ```bash
 pnpm lint
 ```
 
 ### Add New Dependency to Next.js App
+
 ```bash
 pnpm --filter @take-my-money/next-app add some-package
 # or for dev dependency
@@ -147,6 +153,7 @@ pnpm --filter @take-my-money/next-app add -D some-package
 ```
 
 ### Add New Dependency to Shared Library
+
 ```bash
 pnpm --filter @take-my-money/shared-lib add some-package
 ```
