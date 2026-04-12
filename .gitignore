@@ -1,6 +1,5 @@
 node_modules/
 .pnpm/
-pnpm-lock.yaml
 dist/
 build/
 .DS_Store
