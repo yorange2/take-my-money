@@ -1,0 +1,18 @@
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+
+export default [
+  {
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.node },
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      'no-console': 'warn',
+      'no-unused-vars': 'warn',
+    },
+  },
+  ...tseslint.configs.recommended,
+];

@@ -19,33 +19,41 @@ A monorepo using pnpm workspaces with three packages:
 ## 📦 Packages
 
 ### `@take-my-money/shared-lib`
+
 Shared utilities that other packages can depend on. Contains:
+
 - `greet(name)` - Returns a greeting message
 - `add(a, b)` - Returns the sum of two numbers
 
 ### `@take-my-money/app-cli`
+
 A CLI application that uses the shared library.
 
 **Run:**
+
 ```bash
 node apps/app-cli/src/index.js
 ```
 
 **Output:**
+
 ```
 Hello, World!
 2 + 3 = 5
 ```
 
 ### `@take-my-money/app-web`
+
 A web application that also uses the shared library.
 
 **Run:**
+
 ```bash
 node apps/app-web/src/index.js
 ```
 
 **Output:**
+
 ```
 Web app started
 Hello, Web User!
@@ -67,6 +75,7 @@ Hello, Web User!
 ## ✨ Next Steps
 
 You can extend this monorepo by:
+
 1. Adding more packages to the `packages/` directory or `apps/` directory
 2. Adding build tools (TypeScript, Babel, etc.)
 3. Setting up testing frameworks (Jest, Vitest, etc.)
