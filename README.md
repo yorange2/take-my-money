@@ -1,15 +1,16 @@
 # Take My Money Monorepo with pnpm
 
-A modern monorepo using pnpm workspaces with a Next.js application and shared utilities.
+A modern monorepo using pnpm workspaces with a Next.js application, worker, and backend packages.
 
 ## 📁 Structure
 
 ```
 .
 ├── packages/
-│   └── shared-lib/        # Shared utility library
+│   └── dal/               # Data access layer
 ├── apps/
 │   └── web/               # Next.js application
+│   └── worker/            # BullMQ worker
 ├── .vscode/               # VS Code settings for auto-fix/format
 ├── pnpm-workspace.yaml    # Workspace configuration
 ├── eslint.config.mts      # ESLint configuration
@@ -18,13 +19,6 @@ A modern monorepo using pnpm workspaces with a Next.js application and shared ut
 
 ## 📦 Packages
 
-### `@take-my-money/shared-lib`
-
-Shared utilities used across the monorepo. Contains:
-
-- `greet(name)` - Returns a greeting message
-- `add(a, b)` - Returns the sum of two numbers
-
 ### `@take-my-money/web`
 
 A modern Next.js application with:
@@ -32,7 +26,14 @@ A modern Next.js application with:
 - **TypeScript** support
 - **Tailwind CSS** for styling
 - **ESLint** integration
-- Uses `@take-my-money/shared-lib`
+
+### `@take-my-money/worker`
+
+BullMQ-based worker for background jobs.
+
+### `@take-my-money/dal`
+
+Prisma-based data access layer package.
 
 **Run:**
 
@@ -101,4 +102,3 @@ You can extend this monorepo by:
 2. Setting up testing frameworks (Jest, Vitest, etc.)
 3. Adding CI/CD pipelines
 4. Setting up database migrations and ORM configuration
-

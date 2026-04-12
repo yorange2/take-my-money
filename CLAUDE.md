@@ -1,13 +1,14 @@
 # Take My Money - Claude Project Guide
 
-This is a modern monorepo using pnpm workspaces with a Next.js application and shared utilities.
+This is a modern monorepo using pnpm workspaces with a Next.js application and backend packages.
 
 ## Project Overview
 
 **Take My Money** is a monorepo project structured with:
 
-- **packages/shared-lib** - Shared utility library (`@take-my-money/shared-lib`)
+- **packages/dal** - Prisma data access layer (`@take-my-money/dal`)
 - **apps/web** - Next.js 15 application with TypeScript and Tailwind CSS
+- **apps/worker** - BullMQ task worker
 
 ## Tech Stack
 
@@ -39,18 +40,23 @@ pnpm run start            # Start production server
 
 ```
 take-my-money/
-├── packages/shared-lib/          # Shared utilities
-│   ├── src/index.js              # greet() and add() functions
-│   └── package.json              # @take-my-money/shared-lib
+├── packages/dal/                 # Data Access Layer package
+│   ├── prisma/                   # Prisma schema and seed
+│   └── src/                      # DAL source
 │
 ├── apps/web/                     # Next.js application
 │   ├── src/app/
-│   │   ├── page.tsx              # Home page (uses shared-lib)
+│   │   ├── page.tsx              # Home page
 │   │   ├── layout.tsx            # Root layout with metadata
 │   │   └── globals.css           # Tailwind CSS
 │   ├── tailwind.config.mjs
 │   ├── next.config.mjs
 │   └── tsconfig.json
+│
+├── apps/worker/                  # BullMQ worker
+│   ├── src/index.ts              # Worker bootstrap
+│   ├── src/processor.ts          # Job processing logic
+│   └── package.json
 │
 ├── .vscode/
 │   ├── settings.json             # Auto-fix/format on save
@@ -96,24 +102,6 @@ take-my-money/
    ```
 3. Run `pnpm install` to update workspace
 
-### Using Shared Library
-
-To use `@take-my-money/shared-lib` in other packages:
-
-```json
-{
-  "dependencies": {
-    "@take-my-money/shared-lib": "workspace:*"
-  }
-}
-```
-
-Then import:
-
-```javascript
-import { greet } from '@take-my-money/shared-lib';
-```
-
 ## Important Notes
 
 - **Node Version**: Currently using Node v25.9.0 (via nvm)
@@ -152,12 +140,6 @@ pnpm --filter @take-my-money/web add some-package
 pnpm --filter @take-my-money/web add -D some-package
 ```
 
-### Add New Dependency to Shared Library
-
-```bash
-pnpm --filter @take-my-money/shared-lib add some-package
-```
-
 ## Git Workflow
 
 - Use conventional commit messages
@@ -191,7 +173,6 @@ For detailed information about the Next.js application, including page structure
 - This is a modern, well-configured monorepo
 - Code style is enforced via ESLint + Prettier
 - All files auto-fix on save in VS Code
-- The shared library is simple but extensible
 - Next.js app is configured with TypeScript and Tailwind
 - Feel free to add new packages to the `packages/` or `apps/` directories
 - Always run `pnpm install` after adding new packages

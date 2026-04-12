@@ -17,7 +17,6 @@ Open [http://localhost:3000](http://localhost:3000) to see the app.
 ## Features
 
 - Built with Next.js 15
-- Uses shared utilities from `@take-my-money/shared-lib`
 - Tailwind CSS for styling
 - TypeScript support
 - ESLint integration

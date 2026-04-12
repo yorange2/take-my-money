@@ -35,7 +35,6 @@ apps/web/
 
 - Home page component (/ route)
 - Uses `'use client'` directive (client component)
-- Imports and uses `greet()` from `@take-my-money/shared-lib`
 - Styled with Tailwind CSS
 
 ### `src/app/globals.css`
@@ -50,7 +49,6 @@ apps/web/
 - **next**: ^15.0.0 - React framework
 - **react**: ^19.0.0 - React library
 - **react-dom**: ^19.0.0 - React DOM utilities
-- **@take-my-money/shared-lib**: workspace:\* - Shared utilities from the monorepo
 
 ### Development
 
@@ -168,24 +166,6 @@ Import in pages/layouts:
 import Header from '@/components/Header';
 ```
 
-## Using the Shared Library
-
-The shared library is already imported in `page.tsx`:
-
-```typescript
-import { greet } from '@take-my-money/shared-lib';
-
-export default function Home() {
-  return <p>{greet('User')}</p>;
-}
-```
-
-**To add new functions to the shared library:**
-
-1. Edit `packages/shared-lib/src/index.js`
-2. Run `pnpm install` at the root
-3. Import in this app
-
 ## Styling with Tailwind CSS
 
 - Use Tailwind utility classes in JSX:
@@ -279,11 +259,6 @@ Customize in `tailwind.config.mjs` for project-specific colors, fonts, etc.
 2. Export functions: `export async function GET(req) { ... }`
 3. Access at `/api/`
 
-### Import from Shared Library
-
-1. Use: `import { functionName } from '@take-my-money/shared-lib'`
-2. Function automatically available after `pnpm install`
-
 ## Path Aliases
 
 In `tsconfig.json`, `@/*` is aliased to `src/`:
@@ -301,6 +276,5 @@ import Header from '@/components/Header'; // Preferred
 - Prefer server components for better performance
 - Use Tailwind CSS classes for styling (avoid inline styles)
 - Keep components small and focused
-- The shared library is already set up and ready to extend
 - Follow the current code style (see root CLAUDE.md for linting rules)
 - TypeScript is strict - all types must be defined
