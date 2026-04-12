@@ -16,12 +16,8 @@ fi
 # Check if podman-compose is installed
 if ! command -v podman-compose &> /dev/null; then
     echo "⚠️  podman-compose is not installed."
-    echo "   Install with: pip install podman-compose"
-    read -p "   Continue anyway? (y/n) " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        exit 1
-    fi
+    echo "   Install with: apt install podman-compose -y"
+    exit 1
 fi
 
 # Create .env.local if it doesn't exist
