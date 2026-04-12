@@ -1,0 +1,43 @@
+{
+  "name": "@take-my-money/dal",
+  "version": "0.0.1",
+  "description": "Data Access Layer using Prisma for database management",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js"
+    }
+  },
+  "files": [
+    "dist",
+    "prisma"
+  ],
+  "scripts": {
+    "dev": "node --loader tsx watch src/index.ts",
+    "build": "tsc",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "eslint . --ext .js,.ts --fix",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.14",
+    "prisma": "^5.20.0",
+    "tsx": "^4.16.5",
+    "typescript": "^6.0.2",
+    "eslint": "^10.2.0"
+  }
+}
