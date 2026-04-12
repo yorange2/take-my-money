@@ -182,6 +182,10 @@ pnpm --filter @take-my-money/shared-lib add some-package
 5. Add authentication/authorization
 6. Add more shared packages as needed
 
+## App-Specific Documentation
+
+For detailed information about the Next.js application, including page structure, component development, Tailwind CSS usage, and development workflows, see [apps/next-app/CLAUDE.md](apps/next-app/CLAUDE.md).
+
 ## Notes for Claude
 
 - This is a modern, well-configured monorepo
