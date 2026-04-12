@@ -1,0 +1,26 @@
+{
+  "name": "@take-my-money/worker",
+  "version": "0.0.1",
+  "description": "BullMQ task worker",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "enqueue": "tsx src/enqueue-example.ts",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "eslint . --ext .js,.ts --fix"
+  },
+  "dependencies": {
+    "bullmq": "^5.56.6",
+    "ioredis": "^5.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.14",
+    "eslint": "^10.2.0",
+    "tsx": "^4.16.5",
+    "typescript": "^6.0.2"
+  }
+}
