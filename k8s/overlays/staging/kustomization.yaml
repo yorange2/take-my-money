@@ -1,0 +1,38 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: staging
+
+commonLabels:
+  app: take-my-money-web
+  environment: staging
+
+bases:
+  - ../
+
+patches:
+  - target:
+      kind: Deployment
+      name: take-my-money-web
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 2
+
+  - target:
+      kind: HorizontalPodAutoscaler
+      name: take-my-money-web-hpa
+    patch: |-
+      - op: replace
+        path: /spec/minReplicas
+        value: 2
+      - op: replace
+        path: /spec/maxReplicas
+        value: 5
+
+configMapGenerator:
+  - name: take-my-money-config
+    behavior: merge
+    literals:
+      - api_url="https://api-staging.take-my-money.com"
+      - log_level="info"

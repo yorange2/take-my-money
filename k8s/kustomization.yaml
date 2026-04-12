@@ -1,0 +1,45 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: default
+
+commonLabels:
+  app: take-my-money-web
+  managed-by: kustomize
+
+resources:
+  - serviceaccount.yaml
+  - configmap.yaml
+  - service.yaml
+  - deployment.yaml
+  - ingress.yaml
+  - hpa.yaml
+
+# Patch for image and other configurations
+# Can be used for different environments
+patches:
+# Example: patch deployment for image tag
+# - target:
+#     kind: Deployment
+#     name: take-my-money-web
+#   patch: |-
+#     - op: replace
+#       path: /spec/template/spec/containers/0/image
+#       value: gcr.io/PROJECT_ID/take-my-money:VERSION_TAG
+
+# Replace your GCP project ID
+# Use: kustomize edit set image gcr.io/YOUR_PROJECT_ID/take-my-money:TAG
+images:
+  - name: gcr.io/PROJECT_ID/take-my-money
+    newName: gcr.io/YOUR_PROJECT_ID/take-my-money
+    newTag: latest
+
+# Variables for templating (optional)
+vars:
+  - name: NAMESPACE
+    objref:
+      kind: ServiceAccount
+      name: take-my-money
+      apiVersion: v1
+    fieldref:
+      fieldpath: metadata.namespace

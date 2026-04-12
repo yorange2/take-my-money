@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: take-my-money-ingress
+  namespace: default
+  labels:
+    app: take-my-money-web
+  annotations:
+    # GCP Load Balancer annotations
+    kubernetes.io/ingress.class: 'gce'
+    # SSL policy (optional, enable for HTTPS)
+    # ingress.gcp.kubernetes.io/pre-shared-cert: "your-ssl-cert-name"
+    # Managed certificate annotation (uncomment to use managed SSL)
+    # networking.gke.io/managed-certificates: "take-my-money-cert"
+    # Backend configuration for timeouts, session affinity, etc.
+    cloud.google.com/backend-config: '{"ports": {"80":"take-my-money-backendconfig"}}'
+    # Force HTTPS redirect (optional)
+    # kubernetes.io/ingress.global-static-ip-name: "take-my-money-ip"
+
+spec:
+  rules:
+    # Configure with your domain
+    - host: 'take-my-money.example.com'
+      http:
+        paths:
+          - path: '/*'
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: take-my-money-web
+                port:
+                  number: 80
+    # Fallback for requests without Host header
+    - http:
+        paths:
+          - path: '/*'
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: take-my-money-web
+                port:
+                  number: 80
+
+  # Optional: Configure a static IP (must be created beforehand)
+  # loadBalancerIP: "YOUR_STATIC_IP"

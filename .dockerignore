@@ -1,0 +1,52 @@
+# Git and version control
+.git
+.gitignore
+.gitlab-ci.yml
+.github
+
+# Node modules (reinstalled in Docker)
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Build outputs
+dist
+build
+.next
+out
+*.tsbuildinfo
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS files
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+logs
+*.log
+
+# Misc
+coverage
+.cache
+.turbo
+
+# K8s and deployment files
+k8s
+docker-compose*.yml
+Dockerfile*
+.dockerignore
