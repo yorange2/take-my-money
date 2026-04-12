@@ -16,6 +16,7 @@ pnpm dev
 ```
 
 Done! Services run at:
+
 - **PostgreSQL**: localhost:5432 (user: dev, password: dev_password)
 - **Redis**: localhost:6379 (password: redis_password)
 
@@ -24,12 +25,14 @@ Done! Services run at:
 ### Install Podman
 
 **macOS:**
+
 ```bash
 brew install podman
 podman machine start
 ```
 
 **Linux:**
+
 ```bash
 # Ubuntu/Debian
 sudo apt-get install podman
@@ -39,6 +42,7 @@ sudo dnf install podman
 ```
 
 **Windows:**
+
 ```bash
 # Use WSL2 and install in Ubuntu
 # Or download Podman Desktop from https://podman.io
@@ -61,6 +65,7 @@ pnpm setup:dev
 ```
 
 This script:
+
 - ✅ Checks Podman installation
 - ✅ Creates `.env.local` from template
 - ✅ Starts PostgreSQL and Redis containers
@@ -200,6 +205,7 @@ REDIS_PASSWORD=redis_password
 ### PostgreSQL
 
 **Connection Details:**
+
 - Host: `localhost`
 - Port: `5432`
 - Username: `dev`
@@ -207,6 +213,7 @@ REDIS_PASSWORD=redis_password
 - Database: `take_my_money`
 
 **Connection URL:**
+
 ```
 postgresql://dev:dev_password@localhost:5432/take_my_money
 ```
@@ -214,11 +221,13 @@ postgresql://dev:dev_password@localhost:5432/take_my_money
 ### Redis
 
 **Connection Details:**
+
 - Host: `localhost`
 - Port: `6379`
 - Password: `redis_password`
 
 **Connection URL:**
+
 ```
 redis://:redis_password@localhost:6379
 ```
@@ -230,28 +239,29 @@ redis://:redis_password@localhost:6379
 - Both survive container restarts
 
 To completely remove data:
+
 ```bash
 ./scripts/dev.sh clean
 ```
 
 ## Command Reference
 
-| Command | Purpose |
-|---------|---------|
-| `pnpm setup:dev` | Initial environment setup |
-| `pnpm dev` | Start development servers |
-| `pnpm services:start` | Start PostgreSQL & Redis |
-| `pnpm services:stop` | Stop services |
-| `pnpm services:restart` | Restart services |
-| `pnpm services:ps` | View service status |
-| `pnpm services:logs` | View service logs |
-| `pnpm db:shell` | Connect to PostgreSQL |
-| `pnpm redis:cli` | Connect to Redis |
-| `pnpm lint` | Check code quality |
-| `pnpm lint:fix` | Fix lint/format issues |
-| `pnpm format` | Format code |
-| `pnpm build` | Build all packages |
-| `pnpm test` | Run tests |
+| Command                 | Purpose                   |
+| ----------------------- | ------------------------- |
+| `pnpm setup:dev`        | Initial environment setup |
+| `pnpm dev`              | Start development servers |
+| `pnpm services:start`   | Start PostgreSQL & Redis  |
+| `pnpm services:stop`    | Stop services             |
+| `pnpm services:restart` | Restart services          |
+| `pnpm services:ps`      | View service status       |
+| `pnpm services:logs`    | View service logs         |
+| `pnpm db:shell`         | Connect to PostgreSQL     |
+| `pnpm redis:cli`        | Connect to Redis          |
+| `pnpm lint`             | Check code quality        |
+| `pnpm lint:fix`         | Fix lint/format issues    |
+| `pnpm format`           | Format code               |
+| `pnpm build`            | Build all packages        |
+| `pnpm test`             | Run tests                 |
 
 ## Troubleshooting
 
@@ -279,11 +289,11 @@ Edit `podman-compose.yml` to use different ports:
 ```yaml
 postgres:
   ports:
-    - '5433:5432'  # Use 5433 instead of 5432
+    - '5433:5432' # Use 5433 instead of 5432
 
 redis:
   ports:
-    - '6380:6379'  # Use 6380 instead of 6379
+    - '6380:6379' # Use 6380 instead of 6379
 ```
 
 Then update `.env.local`:
@@ -352,8 +362,8 @@ If you get "short-name did not resolve" error:
 ### Next.js
 
 ```typescript
-const databaseUrl = process.env.DATABASE_URL
-const redisUrl = process.env.REDIS_URL
+const databaseUrl = process.env.DATABASE_URL;
+const redisUrl = process.env.REDIS_URL;
 ```
 
 ### With Prisma
@@ -373,13 +383,13 @@ pnpm --filter @take-my-money/dal prisma:migrate:dev
 ### With Redis Libraries
 
 ```typescript
-import Redis from 'ioredis'
+import Redis from 'ioredis';
 
 const redis = new Redis({
   host: process.env.REDIS_HOST || 'localhost',
   port: parseInt(process.env.REDIS_PORT || '6379'),
-  password: process.env.REDIS_PASSWORD || 'redis_password'
-})
+  password: process.env.REDIS_PASSWORD || 'redis_password',
+});
 ```
 
 ## Performance Tips
