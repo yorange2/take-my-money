@@ -9,7 +9,15 @@
     "test": "pnpm -r run test",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs --fix && prettier --write .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "setup:dev": "bash scripts/setup-dev.sh",
+    "services:start": "podman-compose -f podman-compose.yml up -d",
+    "services:stop": "podman-compose -f podman-compose.yml down",
+    "services:restart": "podman-compose -f podman-compose.yml restart",
+    "services:logs": "podman-compose -f podman-compose.yml logs -f",
+    "services:ps": "podman-compose -f podman-compose.yml ps",
+    "db:shell": "bash scripts/dev.sh db-shell",
+    "redis:cli": "bash scripts/dev.sh redis-cli"
   },
   "dependencies": {
     "@eslint/css": "^1.1.0",
