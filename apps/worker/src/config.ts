@@ -26,7 +26,7 @@ export const workerConcurrency = parsePort(
 
 export const redisConnection: ConnectionOptions = {
   host: process.env.REDIS_HOST ?? '127.0.0.1',
-  port: parsePort(process.env.REDIS_PORT, 6379),
+  port: parsePort(process.env.REDIS_PORT, 36379),
   username: process.env.REDIS_USERNAME,
   password: process.env.REDIS_PASSWORD,
   db: parsePort(process.env.REDIS_DB, 0),
