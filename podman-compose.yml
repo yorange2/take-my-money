@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: ${DB_USER:-dev}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-dev_password}
-      POSTGRES_DB: ${DB_NAME:-take_my_money}
+      POSTGRES_DB: ${DB_NAME:-last_key}
       POSTGRES_INITDB_ARGS: '--encoding=UTF8'
     ports:
       - '${DB_PORT:-35432}:5432'
@@ -35,6 +35,52 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - dev-network
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    image: last-key-web:local
+    container_name: last-key-web
+    ports:
+      - '${WEB_PORT:-3000}:3000'
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${DB_USER:-dev}:${DB_PASSWORD:-dev_password}@postgres:5432/${DB_NAME:-last_key}
+      REDIS_URL: redis://:${REDIS_PASSWORD:-redis_password}@redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'node', '-e', "require('http').get('http://localhost:3000', (r) => { if (r.statusCode !== 200) process.exit(1) })"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - dev-network
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    image: last-key-worker:local
+    container_name: last-key-worker
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${DB_USER:-dev}:${DB_PASSWORD:-dev_password}@postgres:5432/${DB_NAME:-last_key}
+      REDIS_URL: redis://:${REDIS_PASSWORD:-redis_password}@redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - dev-network
     restart: unless-stopped

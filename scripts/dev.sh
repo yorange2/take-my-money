@@ -27,15 +27,17 @@ case "$1" in
             echo "📝 Creating .env.local from template..."
             cp .env.local.example .env.local
             echo "✅ Created .env.local - update if needed"
-        else
-            echo "✅ .env.local already exists"
         fi
 
-        # Start services
-        echo "📦 Starting PostgreSQL and Redis containers..."
+        # Build app images
+        echo "🔨 Building Docker images..."
+        podman-compose -f podman-compose.yml build
+
+        # Start all services
+        echo "📦 Starting all containers..."
         podman-compose -f podman-compose.yml up -d
 
-        # Wait for services to be healthy
+        # Wait for infrastructure services
         echo "⏳ Waiting for services to be ready..."
         for i in {1..30}; do
             if podman-compose -f podman-compose.yml exec -T postgres pg_isready -U dev &>/dev/null; then
@@ -61,16 +63,42 @@ case "$1" in
             sleep 1
         done
 
+        # Wait for web app
+        for i in {1..60}; do
+            if curl -sf http://localhost:3000 &>/dev/null; then
+                echo "✅ Web app is ready (http://localhost:3000)"
+                break
+            fi
+            if [ $i -eq 60 ]; then
+                echo "❌ Web app failed to start"
+                podman-compose -f podman-compose.yml logs web
+                exit 1
+            fi
+            sleep 2
+        done
+
+        # Check worker is running
+        for i in {1..30}; do
+            if podman inspect last-key-worker --format '{{.State.Running}}' 2>/dev/null | grep -q true; then
+                echo "✅ Worker is running"
+                break
+            fi
+            if [ $i -eq 30 ]; then
+                echo "❌ Worker failed to start"
+                podman-compose -f podman-compose.yml logs worker
+                exit 1
+            fi
+            sleep 1
+        done
+
         echo ""
         echo "✨ Development environment is ready!"
         echo ""
         echo "📊 Service Information:"
+        echo "   Web:        http://localhost:3000"
         echo "   PostgreSQL: localhost:35432 (user: dev, password: dev_password)"
         echo "   Redis:      localhost:36379 (password: redis_password)"
-        echo ""
-        echo "🎯 Next steps:"
-        echo "   1. Run: pnpm install"
-        echo "   2. Run: pnpm dev"
+        echo "   Worker:     running in background"
         ;;
     stop)
         echo "🛑 Stopping services..."
@@ -111,7 +139,7 @@ case "$1" in
         echo "Usage: ./scripts/dev.sh [command]"
         echo ""
         echo "Commands:"
-        echo "  start       - Set up and start dev environment (PostgreSQL + Redis)"
+        echo "  start       - Build images and start all services"
         echo "  stop        - Stop services"
         echo "  restart     - Restart services"
         echo "  logs        - Show service logs (optional: specify service name)"
