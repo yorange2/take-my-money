@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs --fix && prettier --write .",
     "format": "prettier --write .",
-    "setup:dev": "bash scripts/setup-dev.sh",
+    "setup:dev": "bash scripts/dev.sh start",
     "services:start": "podman-compose -f podman-compose.yml up -d",
     "services:stop": "podman-compose -f podman-compose.yml down",
     "services:restart": "podman-compose -f podman-compose.yml restart",
