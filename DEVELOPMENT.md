@@ -178,7 +178,7 @@ nano .env.local  # or your editor
 DATABASE_URL=postgresql://dev:dev_password@localhost:5432/take_my_money
 REDIS_URL=redis://:redis_password@localhost:6379
 NODE_ENV=development
-NEXT_PUBLIC_APP_NAME=Take My Money
+NEXT_PUBLIC_APP_NAME=LastKey
 NEXT_PUBLIC_API_URL=http://localhost:3000
 ```
 
@@ -377,7 +377,7 @@ DATABASE_URL=postgresql://dev:dev_password@localhost:5432/take_my_money
 Then run migrations:
 
 ```bash
-pnpm --filter @take-my-money/dal prisma:migrate:dev
+pnpm --filter @last-key/dal prisma:migrate:dev
 ```
 
 ### With Redis Libraries

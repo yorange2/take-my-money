@@ -1,4 +1,4 @@
-# @take-my-money/worker
+# @last-key/worker
 
 BullMQ-based task worker app.
 
@@ -14,9 +14,9 @@ Copy `.env.example` values into your preferred environment source.
 ## Scripts
 
 ```bash
-pnpm --filter @take-my-money/worker run dev
-pnpm --filter @take-my-money/worker run build
-pnpm --filter @take-my-money/worker run start
+pnpm --filter @last-key/worker run dev
+pnpm --filter @last-key/worker run build
+pnpm --filter @last-key/worker run start
 ```
 
 ## Job Data Contract

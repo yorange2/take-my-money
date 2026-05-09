@@ -1,10 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: take-my-money-dev
+namespace: last-key-dev
 
 commonLabels:
-  app: take-my-money-web
+  app: last-key-web
   managed-by: kustomize
 
 resources:
@@ -21,17 +21,17 @@ patches:
 # Example: patch deployment for image tag
 # - target:
 #     kind: Deployment
-#     name: take-my-money-web
+#     name: last-key-web
 #   patch: |-
 #     - op: replace
 #       path: /spec/template/spec/containers/0/image
-#       value: gcr.io/PROJECT_ID/take-my-money:VERSION_TAG
+#       value: gcr.io/PROJECT_ID/last-key:VERSION_TAG
 
 # Replace your GCP project ID
-# Use: kustomize edit set image gcr.io/YOUR_PROJECT_ID/take-my-money:TAG
+# Use: kustomize edit set image gcr.io/YOUR_PROJECT_ID/last-key:TAG
 images:
-  - name: gcr.io/PROJECT_ID/take-my-money
-    newName: gcr.io/YOUR_PROJECT_ID/take-my-money
+  - name: gcr.io/PROJECT_ID/last-key
+    newName: gcr.io/YOUR_PROJECT_ID/last-key
     newTag: latest
 
 # Variables for templating (optional)
@@ -39,7 +39,7 @@ vars:
   - name: NAMESPACE
     objref:
       kind: ServiceAccount
-      name: take-my-money
+      name: last-key
       apiVersion: v1
     fieldref:
       fieldpath: metadata.namespace

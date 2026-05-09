@@ -1,10 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: take-my-money-staging
+namespace: last-key-staging
 
 commonLabels:
-  app: take-my-money-web
+  app: last-key-web
   environment: staging
 
 bases:
@@ -13,7 +13,7 @@ bases:
 patches:
   - target:
       kind: Deployment
-      name: take-my-money-web
+      name: last-key-web
     patch: |-
       - op: replace
         path: /spec/replicas
@@ -21,7 +21,7 @@ patches:
 
   - target:
       kind: HorizontalPodAutoscaler
-      name: take-my-money-web-hpa
+      name: last-key-web-hpa
     patch: |-
       - op: replace
         path: /spec/minReplicas
@@ -31,8 +31,8 @@ patches:
         value: 5
 
 configMapGenerator:
-  - name: take-my-money-config
+  - name: last-key-config
     behavior: merge
     literals:
-      - api_url="https://api-staging.take-my-money.com"
+      - api_url="https://api-staging.last-key.com"
       - log_level="info"

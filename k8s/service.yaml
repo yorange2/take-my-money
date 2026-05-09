@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: take-my-money-web
-  namespace: take-my-money-dev
+  name: last-key-web
+  namespace: last-key-dev
   labels:
-    app: take-my-money-web
+    app: last-key-web
 spec:
   type: ClusterIP
   selector:
-    app: take-my-money-web
+    app: last-key-web
   ports:
     - name: http
       port: 80

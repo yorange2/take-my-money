@@ -1,6 +1,6 @@
 # DAL (Data Access Layer) Package
 
-Prisma-based data access layer for Take My Money application.
+Prisma-based data access layer for LastKey application.
 
 ## Features
 
@@ -59,7 +59,7 @@ pnpm prisma:seed
 ### Basic Queries
 
 ```typescript
-import { prisma, userQueries, postQueries } from '@take-my-money/dal';
+import { prisma, userQueries, postQueries } from '@last-key/dal';
 
 // Find user by email
 const user = await userQueries.findUnique('user@example.com');
@@ -78,7 +78,7 @@ const posts = await postQueries.findPublished();
 ### Direct Prisma Access
 
 ```typescript
-import { prisma } from '@take-my-money/dal';
+import { prisma } from '@last-key/dal';
 
 // Use Prisma directly for custom queries
 const result = await prisma.user.findMany({
@@ -198,13 +198,13 @@ export { articleQueries };
 
 ```typescript
 // Singleton Prisma client
-import { prisma } from '@take-my-money/dal';
+import { prisma } from '@last-key/dal';
 
 // Prisma types
-import type { User, Post } from '@take-my-money/dal';
+import type { User, Post } from '@last-key/dal';
 
 // Query functions
-import { userQueries, postQueries, sessionQueries } from '@take-my-money/dal';
+import { userQueries, postQueries, sessionQueries } from '@last-key/dal';
 ```
 
 ## Environment Variables

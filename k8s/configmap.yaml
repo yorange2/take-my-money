@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: take-my-money-config
-  namespace: take-my-money-dev
+  name: last-key-config
+  namespace: last-key-dev
   labels:
-    app: take-my-money-web
+    app: last-key-web
 data:
   # Application configuration
-  app_name: 'Take My Money'
+  app_name: 'LastKey'
   api_url: 'https://api.example.com'
 
   # Optional: Add more config as needed

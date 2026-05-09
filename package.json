@@ -1,7 +1,7 @@
 {
-  "name": "take-my-money",
+  "name": "last-key",
   "version": "0.0.0",
-  "description": "Take My Money monorepo with pnpm",
+  "description": "LastKey monorepo with pnpm",
   "private": true,
   "scripts": {
     "dev": "pnpm -r --parallel run dev",

@@ -1,4 +1,4 @@
-# Take My Money Monorepo with pnpm
+# LastKey Monorepo with pnpm
 
 A modern monorepo using pnpm workspaces with a Next.js application, worker, and backend packages.
 
@@ -19,7 +19,7 @@ A modern monorepo using pnpm workspaces with a Next.js application, worker, and 
 
 ## 📦 Packages
 
-### `@take-my-money/web`
+### `@last-key/web`
 
 A modern Next.js application with:
 
@@ -27,11 +27,11 @@ A modern Next.js application with:
 - **Tailwind CSS** for styling
 - **ESLint** integration
 
-### `@take-my-money/worker`
+### `@last-key/worker`
 
 BullMQ-based worker for background jobs.
 
-### `@take-my-money/dal`
+### `@last-key/dal`
 
 Prisma-based data access layer package.
 
@@ -84,7 +84,7 @@ The project is configured for VS Code to auto-fix and format on save:
 ### Run Next.js Dev Server
 
 ```bash
-pnpm --filter @take-my-money/web run dev
+pnpm --filter @last-key/web run dev
 ```
 
 Or from the app directory:

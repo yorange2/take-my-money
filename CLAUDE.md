@@ -1,12 +1,12 @@
-# Take My Money - Claude Project Guide
+# LastKey - Claude Project Guide
 
 This is a modern monorepo using pnpm workspaces with a Next.js application and backend packages.
 
 ## Project Overview
 
-**Take My Money** is a monorepo project structured with:
+**LastKey** is a monorepo project structured with:
 
-- **packages/dal** - Prisma data access layer (`@take-my-money/dal`)
+- **packages/dal** - Prisma data access layer (`@last-key/dal`)
 - **apps/web** - Next.js 15 application with TypeScript and Tailwind CSS
 - **apps/worker** - BullMQ task worker
 
@@ -39,7 +39,7 @@ pnpm run start            # Start production server
 ## Project Structure
 
 ```
-take-my-money/
+last-key/
 ├── packages/dal/                 # Data Access Layer package
 │   ├── prisma/                   # Prisma schema and seed
 │   └── src/                      # DAL source
@@ -92,7 +92,7 @@ take-my-money/
 2. Add `package.json` with:
    ```json
    {
-     "name": "@take-my-money/my-package",
+     "name": "@last-key/my-package",
      "type": "module",
      "scripts": {
        "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
@@ -115,7 +115,7 @@ take-my-money/
 ### Run Next.js Development Server
 
 ```bash
-pnpm --filter @take-my-money/web run dev
+pnpm --filter @last-key/web run dev
 # or
 cd apps/web && pnpm run dev
 ```
@@ -135,9 +135,9 @@ pnpm lint
 ### Add New Dependency to Next.js App
 
 ```bash
-pnpm --filter @take-my-money/web add some-package
+pnpm --filter @last-key/web add some-package
 # or for dev dependency
-pnpm --filter @take-my-money/web add -D some-package
+pnpm --filter @last-key/web add -D some-package
 ```
 
 ## Git Workflow

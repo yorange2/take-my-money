@@ -1,6 +1,6 @@
 # Kubernetes Deployment Guide
 
-This directory contains Kubernetes manifests for deploying the Take My Money application to Google Cloud GKE.
+This directory contains Kubernetes manifests for deploying the LastKey application to Google Cloud GKE.
 
 ## Directory Structure
 
@@ -26,7 +26,7 @@ k8s/
 1. **GKE Cluster**: Create one with:
 
    ```bash
-   gcloud container clusters create take-my-money \
+   gcloud container clusters create last-key \
      --zone us-central1-a \
      --num-nodes 3 \
      --enable-autoscaling \
@@ -50,8 +50,8 @@ k8s/
 
 ```bash
 # From project root
-docker build -t gcr.io/YOUR_PROJECT_ID/take-my-money:v1.0.0 .
-docker push gcr.io/YOUR_PROJECT_ID/take-my-money:v1.0.0
+docker build -t gcr.io/YOUR_PROJECT_ID/last-key:v1.0.0 .
+docker push gcr.io/YOUR_PROJECT_ID/last-key:v1.0.0
 ```
 
 ### 2. Update Configuration
@@ -78,17 +78,17 @@ For HTTPS with managed certificate:
 ```yaml
 # Edit ingress.yaml
 annotations:
-  networking.gke.io/managed-certificates: 'take-my-money-cert'
+  networking.gke.io/managed-certificates: 'last-key-cert'
 
 ---
 # Add to ingress.yaml
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: take-my-money-cert
+  name: last-key-cert
 spec:
   domains:
-    - take-my-money.com
+    - last-key.com
 ```
 
 ## Deployment
@@ -135,23 +135,23 @@ kubectl apply -f k8s/ingress.yaml
 
 ```bash
 # Watch rollout
-kubectl rollout status deployment/take-my-money-web
+kubectl rollout status deployment/last-key-web
 
 # Get pod status
-kubectl get pods -l app=take-my-money-web
+kubectl get pods -l app=last-key-web
 
 # View pod logs
-kubectl logs -l app=take-my-money-web --tail=50 -f
+kubectl logs -l app=last-key-web --tail=50 -f
 
 # Describe deployment
-kubectl describe deployment take-my-money-web
+kubectl describe deployment last-key-web
 ```
 
 ### Access the Application
 
 ```bash
 # Port forward to local machine
-kubectl port-forward svc/take-my-money-web 3000:80
+kubectl port-forward svc/last-key-web 3000:80
 
 # Access at http://localhost:3000
 ```
@@ -159,11 +159,11 @@ kubectl port-forward svc/take-my-money-web 3000:80
 ### Check Ingress
 
 ```bash
-kubectl get ingress take-my-money-ingress
-kubectl describe ingress take-my-money-ingress
+kubectl get ingress last-key-ingress
+kubectl describe ingress last-key-ingress
 
 # Get external IP (may take a few minutes)
-kubectl get ingress take-my-money-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl get ingress last-key-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 ```
 
 ## Scaling
@@ -172,7 +172,7 @@ kubectl get ingress take-my-money-ingress -o jsonpath='{.status.loadBalancer.ing
 
 ```bash
 # Scale to 5 replicas
-kubectl scale deployment take-my-money-web --replicas=5
+kubectl scale deployment last-key-web --replicas=5
 ```
 
 ### Automatic Scaling
@@ -180,7 +180,7 @@ kubectl scale deployment take-my-money-web --replicas=5
 HPA is already configured (3-10 replicas). Monitor with:
 
 ```bash
-kubectl get hpa take-my-money-web-hpa --watch
+kubectl get hpa last-key-web-hpa --watch
 ```
 
 ## Updates & Rollouts
@@ -189,12 +189,12 @@ kubectl get hpa take-my-money-web-hpa --watch
 
 ```bash
 # Using kubectl patch
-kubectl set image deployment/take-my-money-web \
-  web=gcr.io/YOUR_PROJECT_ID/take-my-money:v1.0.1 \
+kubectl set image deployment/last-key-web \
+  web=gcr.io/YOUR_PROJECT_ID/last-key:v1.0.1 \
   --record
 
 # Or with Kustomize
-kustomize edit set image gcr.io/YOUR_PROJECT_ID/take-my-money:v1.0.1
+kustomize edit set image gcr.io/YOUR_PROJECT_ID/last-key:v1.0.1
 kubectl apply -k k8s/overlays/production
 ```
 
@@ -202,13 +202,13 @@ kubectl apply -k k8s/overlays/production
 
 ```bash
 # View rollout history
-kubectl rollout history deployment/take-my-money-web
+kubectl rollout history deployment/last-key-web
 
 # Rollback to previous version
-kubectl rollout undo deployment/take-my-money-web
+kubectl rollout undo deployment/last-key-web
 
 # Rollback to specific revision
-kubectl rollout undo deployment/take-my-money-web --to-revision=2
+kubectl rollout undo deployment/last-key-web --to-revision=2
 ```
 
 ## Monitoring & Logs
@@ -217,10 +217,10 @@ kubectl rollout undo deployment/take-my-money-web --to-revision=2
 
 ```bash
 # Latest logs
-kubectl logs deployment/take-my-money-web --tail=100
+kubectl logs deployment/last-key-web --tail=100
 
 # Stream logs
-kubectl logs deployment/take-my-money-web -f
+kubectl logs deployment/last-key-web -f
 
 # Logs from specific pod
 kubectl logs POD_NAME -f
@@ -236,7 +236,7 @@ kubectl describe pod POD_NAME
 
 ```bash
 # Logs are automatically sent to Cloud Logging
-gcloud logging read "resource.type=k8s_container AND resource.labels.deployment_name=take-my-money-web" --limit 50
+gcloud logging read "resource.type=k8s_container AND resource.labels.deployment_name=last-key-web" --limit 50
 ```
 
 ## Environment Variables
@@ -245,7 +245,7 @@ The deployment uses ConfigMap for environment variables. Update in `configmap.ya
 
 ```yaml
 data:
-  app_name: 'Take My Money'
+  app_name: 'LastKey'
   api_url: 'https://api.example.com'
 ```
 
@@ -253,7 +253,7 @@ For secrets (API keys, passwords):
 
 ```bash
 # Create secret
-kubectl create secret generic take-my-money-secrets \
+kubectl create secret generic last-key-secrets \
   --from-literal=database_password=xxx \
   --from-literal=api_key=yyy
 
@@ -262,7 +262,7 @@ env:
 - name: DATABASE_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: take-my-money-secrets
+      name: last-key-secrets
       key: database_password
 ```
 
@@ -282,9 +282,9 @@ Adjust in `deployment.yaml` and overlay files based on your load testing.
 kubectl delete -k k8s/overlays/production
 
 # Or specific resource
-kubectl delete deployment take-my-money-web
-kubectl delete service take-my-money-web
-kubectl delete ingress take-my-money-ingress
+kubectl delete deployment last-key-web
+kubectl delete service last-key-web
+kubectl delete ingress last-key-ingress
 ```
 
 ## Common Issues
@@ -345,9 +345,9 @@ gcloud container images list --repository=gcr.io/YOUR_PROJECT_ID
 - name: Deploy to GKE
   run: |
     gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE
-    docker build -t gcr.io/$PROJECT_ID/take-my-money:$GITHUB_SHA .
-    docker push gcr.io/$PROJECT_ID/take-my-money:$GITHUB_SHA
-    kustomize edit set image gcr.io/$PROJECT_ID/take-my-money:$GITHUB_SHA
+    docker build -t gcr.io/$PROJECT_ID/last-key:$GITHUB_SHA .
+    docker push gcr.io/$PROJECT_ID/last-key:$GITHUB_SHA
+    kustomize edit set image gcr.io/$PROJECT_ID/last-key:$GITHUB_SHA
     kubectl apply -k k8s/overlays/production
 ```
 

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Take My Money',
-  description: 'Next.js app in Take My Money monorepo',
+  title: 'LastKey',
+  description: 'Next.js app in LastKey monorepo',
 };
 
 export default function RootLayout({

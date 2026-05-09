@@ -1,5 +1,5 @@
 {
-  "name": "@take-my-money/worker",
+  "name": "@last-key/worker",
   "version": "0.0.1",
   "description": "BullMQ task worker",
   "type": "module",

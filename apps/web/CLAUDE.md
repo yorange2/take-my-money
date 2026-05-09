@@ -1,6 +1,6 @@
 # Next.js App - Detailed Development Guide
 
-This document provides detailed information about the Next.js application in the Take My Money monorepo. Refer to the root CLAUDE.md for general project setup and scripts.
+This document provides detailed information about the Next.js application in the LastKey monorepo. Refer to the root CLAUDE.md for general project setup and scripts.
 
 ## App Structure
 

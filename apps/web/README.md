@@ -1,6 +1,6 @@
-# Take My Money - Next.js App
+# LastKey - Next.js App
 
-Next.js application in the Take My Money monorepo.
+Next.js application in the LastKey monorepo.
 
 ## Getting Started
 

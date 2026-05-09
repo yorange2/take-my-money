@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: take-my-money-web
-  namespace: take-my-money-dev
+  name: last-key-web
+  namespace: last-key-dev
   labels:
-    app: take-my-money-web
+    app: last-key-web
     version: v1
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: take-my-money-web
+      app: last-key-web
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,11 +19,11 @@ spec:
   template:
     metadata:
       labels:
-        app: take-my-money-web
+        app: last-key-web
         version: v1
     spec:
       # Service account for GCP integration
-      serviceAccountName: take-my-money
+      serviceAccountName: last-key
       securityContext:
         runAsNonRoot: true
         runAsUser: 1001
@@ -32,7 +32,7 @@ spec:
       containers:
         - name: web
           # Update IMAGE_TAG with your deploy process (e.g., git commit hash)
-          image: gcr.io/PROJECT_ID/take-my-money:latest
+          image: gcr.io/PROJECT_ID/last-key:latest
           imagePullPolicy: IfNotPresent
 
           ports:
@@ -46,12 +46,12 @@ spec:
             - name: NEXT_PUBLIC_APP_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: take-my-money-config
+                  name: last-key-config
                   key: app_name
             - name: NEXT_PUBLIC_API_URL
               valueFrom:
                 configMapKeyRef:
-                  name: take-my-money-config
+                  name: last-key-config
                   key: api_url
 
           # Resource requests and limits
@@ -119,7 +119,7 @@ spec:
                     - key: app
                       operator: In
                       values:
-                        - take-my-money-web
+                        - last-key-web
                 topologyKey: kubernetes.io/hostname
 
       # Termination grace period for graceful shutdown

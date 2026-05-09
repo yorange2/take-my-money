@@ -4,7 +4,7 @@
 
 set -e
 
-echo "🚀 Setting up Take My Money local development environment..."
+echo "🚀 Setting up LastKey local development environment..."
 
 # Check if Podman is installed
 if ! command -v podman &> /dev/null; then

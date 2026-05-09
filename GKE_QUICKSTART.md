@@ -5,7 +5,7 @@
 ### 1. Create a GKE Cluster
 
 ```bash
-gcloud container clusters create take-my-money \
+gcloud container clusters create last-key \
   --zone us-central1-a \
   --num-nodes 3
 ```
@@ -14,8 +14,8 @@ gcloud container clusters create take-my-money \
 
 ```bash
 # Replace YOUR_PROJECT_ID with your GCP project ID
-docker build -t gcr.io/YOUR_PROJECT_ID/take-my-money:v1.0.0 .
-docker push gcr.io/YOUR_PROJECT_ID/take-my-money:v1.0.0
+docker build -t gcr.io/YOUR_PROJECT_ID/last-key:v1.0.0 .
+docker push gcr.io/YOUR_PROJECT_ID/last-key:v1.0.0
 ```
 
 ### 3. Update Deployment Configuration
@@ -39,7 +39,7 @@ kubectl apply -f k8s/
 ### 5. Check Status
 
 ```bash
-kubectl get pods -l app=take-my-money-web
+kubectl get pods -l app=last-key-web
 kubectl get ingress
 ```
 
@@ -47,10 +47,10 @@ kubectl get ingress
 
 ```bash
 # Get the external IP
-kubectl get ingress take-my-money-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl get ingress last-key-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
 # Or port-forward locally
-kubectl port-forward svc/take-my-money-web 3000:80
+kubectl port-forward svc/last-key-web 3000:80
 # Visit http://localhost:3000
 ```
 

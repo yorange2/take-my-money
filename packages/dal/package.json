@@ -1,5 +1,5 @@
 {
-  "name": "@take-my-money/dal",
+  "name": "@last-key/dal",
   "version": "0.0.1",
   "description": "Data Access Layer using Prisma for database management",
   "type": "module",

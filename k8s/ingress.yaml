@@ -1,33 +1,33 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: take-my-money-ingress
-  namespace: take-my-money-dev
+  name: last-key-ingress
+  namespace: last-key-dev
   labels:
-    app: take-my-money-web
+    app: last-key-web
   annotations:
     # GCP Load Balancer annotations
     kubernetes.io/ingress.class: 'gce'
     # SSL policy (optional, enable for HTTPS)
     # ingress.gcp.kubernetes.io/pre-shared-cert: "your-ssl-cert-name"
     # Managed certificate annotation (uncomment to use managed SSL)
-    # networking.gke.io/managed-certificates: "take-my-money-cert"
+    # networking.gke.io/managed-certificates: "last-key-cert"
     # Backend configuration for timeouts, session affinity, etc.
-    cloud.google.com/backend-config: '{"ports": {"80":"take-my-money-backendconfig"}}'
+    cloud.google.com/backend-config: '{"ports": {"80":"last-key-backendconfig"}}'
     # Force HTTPS redirect (optional)
-    # kubernetes.io/ingress.global-static-ip-name: "take-my-money-ip"
+    # kubernetes.io/ingress.global-static-ip-name: "last-key-ip"
 
 spec:
   rules:
     # Configure with your domain
-    - host: 'take-my-money.example.com'
+    - host: 'last-key.example.com'
       http:
         paths:
           - path: '/*'
             pathType: ImplementationSpecific
             backend:
               service:
-                name: take-my-money-web
+                name: last-key-web
                 port:
                   number: 80
     # Fallback for requests without Host header
@@ -37,7 +37,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: take-my-money-web
+                name: last-key-web
                 port:
                   number: 80
 
