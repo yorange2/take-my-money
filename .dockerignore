@@ -10,12 +10,12 @@ npm-debug.log
 yarn-error.log
 pnpm-debug.log
 
-# Build outputs
-dist
-build
-.next
-out
-*.tsbuildinfo
+# Build outputs (rebuilt in Docker)
+**/dist
+**/build
+**/.next
+**/out
+**/*.tsbuildinfo
 
 # IDE and editor files
 .vscode
@@ -23,7 +23,6 @@ out
 *.swp
 *.swo
 *~
-.DS_Store
 
 # Environment files
 .env
@@ -38,7 +37,6 @@ Thumbs.db
 
 # Logs
 logs
-*.log
 
 # Misc
 coverage
@@ -48,5 +46,5 @@ coverage
 # K8s and deployment files
 k8s
 docker-compose*.yml
-Dockerfile*
+podman-compose*.yml
 .dockerignore

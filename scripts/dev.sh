@@ -4,6 +4,9 @@
 
 set -e
 
+ENV_FILE=".env.local"
+COMPOSE="podman-compose --env-file ${ENV_FILE} -f podman-compose.yml"
+
 case "$1" in
     start)
         echo "🚀 Setting up LastKey local development environment..."
@@ -29,18 +32,19 @@ case "$1" in
             echo "✅ Created .env.local - update if needed"
         fi
 
-        # Build app images
+        # Build app images sequentially (parallel builds exceed podman memory)
         echo "🔨 Building Docker images..."
-        podman-compose -f podman-compose.yml build
+        podman build -f apps/web/Dockerfile -t last-key-web:local .
+        podman build -f apps/worker/Dockerfile -t last-key-worker:local .
 
         # Start all services
         echo "📦 Starting all containers..."
-        podman-compose -f podman-compose.yml up -d
+        $COMPOSE up -d
 
         # Wait for infrastructure services
         echo "⏳ Waiting for services to be ready..."
         for i in {1..30}; do
-            if podman-compose -f podman-compose.yml exec -T postgres pg_isready -U dev &>/dev/null; then
+            if $COMPOSE exec -T postgres pg_isready -U dev &>/dev/null; then
                 echo "✅ PostgreSQL is ready"
                 break
             fi
@@ -52,7 +56,7 @@ case "$1" in
         done
 
         for i in {1..30}; do
-            if podman-compose -f podman-compose.yml exec -T redis redis-cli -a redis_password ping &>/dev/null; then
+            if $COMPOSE exec -T redis redis-cli -a redis_password ping &>/dev/null; then
                 echo "✅ Redis is ready"
                 break
             fi
@@ -71,7 +75,7 @@ case "$1" in
             fi
             if [ $i -eq 60 ]; then
                 echo "❌ Web app failed to start"
-                podman-compose -f podman-compose.yml logs web
+                $COMPOSE logs web
                 exit 1
             fi
             sleep 2
@@ -85,7 +89,7 @@ case "$1" in
             fi
             if [ $i -eq 30 ]; then
                 echo "❌ Worker failed to start"
-                podman-compose -f podman-compose.yml logs worker
+                $COMPOSE logs worker
                 exit 1
             fi
             sleep 1
@@ -102,36 +106,36 @@ case "$1" in
         ;;
     stop)
         echo "🛑 Stopping services..."
-        podman-compose -f podman-compose.yml down
+        $COMPOSE down
         echo "✅ Services stopped"
         ;;
     restart)
         echo "🔄 Restarting services..."
-        podman-compose -f podman-compose.yml restart
+        $COMPOSE restart
         echo "✅ Services restarted"
         ;;
     logs)
         echo "📋 Showing logs..."
-        podman-compose -f podman-compose.yml logs -f ${2:-}
+        $COMPOSE logs -f ${2:-}
         ;;
     ps)
         echo "📊 Container status:"
-        podman-compose -f podman-compose.yml ps
+        $COMPOSE ps
         ;;
     db-shell)
         echo "🗄️  Connecting to PostgreSQL..."
-        podman-compose -f podman-compose.yml exec postgres psql -U dev -d last_key
+        $COMPOSE exec postgres psql -U dev -d last_key
         ;;
     redis-cli)
         echo "🔴 Connecting to Redis..."
-        podman-compose -f podman-compose.yml exec redis redis-cli -a redis_password
+        $COMPOSE exec redis redis-cli -a redis_password
         ;;
     clean)
         echo "🧹 Removing all containers and volumes..."
         read -p "⚠️  This will delete all data. Continue? (y/n) " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            podman-compose -f podman-compose.yml down -v
+            $COMPOSE down -v
             echo "✅ Cleanup complete"
         fi
         ;;
