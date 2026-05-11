@@ -1,11 +1,11 @@
 # Multi-stage build for Next.js web app
 FROM node:25-alpine AS base
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g pnpm@10
 WORKDIR /app
 
 # Stage 1: Install dependencies
 FROM base AS dependencies
-COPY pnpm-lock.yaml package.json pnpm-workspace.yaml ./
+COPY pnpm-lock.yaml package.json pnpm-workspace.yaml .npmrc ./
 COPY apps/web/package.json ./apps/web/
 COPY packages/dal/package.json ./packages/dal/
 COPY apps/worker/package.json ./apps/worker/

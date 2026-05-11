@@ -46,7 +46,7 @@ services:
     image: last-key-web:local
     container_name: last-key-web
     ports:
-      - '${WEB_PORT:-3000}:3000'
+      - '${WEB_PORT:-33000}:3000'
     environment:
       NODE_ENV: production
       DATABASE_URL: postgresql://${DB_USER:-dev}:${DB_PASSWORD:-dev_password}@postgres:5432/${DB_NAME:-last_key}

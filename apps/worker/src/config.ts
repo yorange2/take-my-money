@@ -28,7 +28,7 @@ export const redisConnection: ConnectionOptions = {
   host: process.env.REDIS_HOST ?? '127.0.0.1',
   port: parsePort(process.env.REDIS_PORT, 36379),
   username: process.env.REDIS_USERNAME,
-  password: process.env.REDIS_PASSWORD,
+  password: process.env.REDIS_PASSWORD ?? 'redis_password',
   db: parsePort(process.env.REDIS_DB, 0),
   maxRetriesPerRequest: null,
   tls: parseBool(process.env.REDIS_TLS) ? {} : undefined,
