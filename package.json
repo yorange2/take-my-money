@@ -4,7 +4,7 @@
   "description": "LastKey monorepo with pnpm",
   "private": true,
   "scripts": {
-    "dev": "pnpm -r --parallel run dev",
+    "dev": "set -a && . ./.env.local && set +a && pnpm -r --parallel run dev",
     "build": "pnpm -r run build",
     "test": "pnpm -r run test",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs",

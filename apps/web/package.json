@@ -4,7 +4,7 @@
   "description": "Next.js application",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p ${WEB_PORT:-3000}",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
