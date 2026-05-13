@@ -3,9 +3,9 @@ node_modules/
 dist/
 build/
 .DS_Store
-.env
-.env.local
-.env.local.docker
+**/.env
+**/.env.local
+.claude/settings.local.json
 *.log
 *.swp
 *.swo
@@ -14,3 +14,6 @@ build/
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+.env.local.docker
+.tsbuildinfo
+.turbo
