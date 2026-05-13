@@ -4,11 +4,12 @@
   "description": "Next.js application",
   "type": "module",
   "scripts": {
-    "dev": "next dev -p ${WEB_PORT:-3000}",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "next": "^15.0.0",
